@@ -79,7 +79,7 @@ function updateMap(year) {
 }
 
 function initYearDropdown() {
-  const years = Array.from(groupedData.keys());
+  const years = Array.from(groupedData.keys()).filter(year => year !== "1990");;
   const yearDropdown = d3.select("#yearDropdown");
 
   yearDropdown
