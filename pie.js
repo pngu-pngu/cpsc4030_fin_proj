@@ -1,7 +1,7 @@
 
 d3.csv("meat_consumption_worldwide.csv").then(data => {
-    const width = 500;
-    const height = 500;
+    const width = 400;
+    const height = 400;
     const radius = Math.min(width, height) / 2 - 110;
 
     // Filter data 
