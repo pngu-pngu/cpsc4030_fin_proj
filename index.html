@@ -1,42 +1,84 @@
+
+
+
+
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Meat Consumption</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meat Consumption Dashboard</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-      }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF; /* Dark grey */
+            color: #FFF;
+        }
 
-      h1 {
-        text-align: center;
-      }
+        h1 {
+            display: flex; /* Enables flexbox for the element */
+            justify-content: center; /* Centers content horizontally */
+            align-items: center; /* Centers content vertically */
+            margin: auto; /* Centers the h1 element within the body */
+            font-size: 2.5em;
+            color: #FFF;
+            background-color: #063806;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: 80px; /* Ensures there's a consistent height for centering */
+        }
 
-      #controls {
-        margin-bottom: 20px;
-        text-align: center;
-      }
+        h2{
 
-      #locationDropdown {
-        padding: 8px;
-        font-size: 14px;
-      }
+          text-align: center;
+          margin: 20px 0;
+          font-size: 1.5em;
+          color: #063806;
+        
+        }
 
-      #charts-container {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-      }
+        #description {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #impact{
+            text-align: center;
+            margin: 40px;
+            background-color: #FFF;
+            color: black;
+        }
 
-      #pie-chart, #line-chart {
-        margin: 20px;
-        width: 400px;
-        height: 400px;
-      }
+        #dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            gap: 20px;
+        }
 
+        #charts-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            gap: 20px;
+
+        }
+
+        .chart-box {
+            background-color: #FFF ;
+            padding: 20px;
+            flex: 1;
+            min-width: 350px;
+            max-width: 48%;
+    
+        }
         #map-container {
             margin-top: 100px;
         }
@@ -56,11 +98,6 @@
             margin-top: 10px;
         }
 
-        #legend-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
 
 
         #controls .controls-right {
@@ -68,65 +105,56 @@
             flex-direction: column;
         }
 
-        #yearDropdown {
-            padding: 8px;
-            font-size: 14px;
-            margin-top: 5px;
-            margin: auto;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            outline: none;
-            transition: all 0.3s;
+
+        #pie-chart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-            #yearDropdown:hover {
-                border-color: #888;
+        #controls-charts {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .chart-box {
+                max-width: 100%;
             }
-
-            #yearDropdown:focus {
-                border-color: #ff5722;
-            }
-
-
-
-      svg {
-        font-size: 12px;
-      }
+        }
     </style>
-  </head>
-  <body>
-      <h1>Meat Consumption</h1>
+</head>
+<body>
+    <h1>Going Green</h1>
+    <div id="description">
+        <p style="font-size: 1.5em; color: #063806;">Reduce the carbon impact of meat consumption!</p>
+    </div>
+    <div id="impact">
+        <p style="font-size: 1em; color: #040404;">The production of meat products—especially beef—is one of the largest contributing factors to global climate change. Meat production requires deforestation, and  ruminant animals emit the harmful greenhouse gas methane as part of their digestive process. Dietary habits vary based on several cultural and economic factors, so meat consumption looks very different from one country to another. Additionally, different types of meat products have varying carbon footprints. We want to explore which areas of the world are committed towards decreasing meat consumption and lowering greenhouse emissions whether it is by decreasing meat consumption all together or decreasing the most harmful type of meat and increasing the least harmful type of meat. </p>
+    </div>
+    <div id="dashboard-container">
+        <div id="charts-container">
+            <div class="chart-box">
+                <h2>Meat Consumption Breakdown</h2>
+                <div id="pie-chart"></div>
+            </div>
+            <div class="chart-box">
+                <h2>Trends Over Time</h2>
+                <div id="line-chart"></div>
+            </div>
+        </div>
+    </div>
 
-      <!-- Dropdown for selecting the location -->
-      <div id="controls">
-          <label for="locationDropdown">Select Location:</label>
-          <select id="locationDropdown">
-              <!-- Options will be dynamically added in JavaScript -->
-          </select>
-      </div>
+    <div id="map-container">
+        <div id="map"></div>
+        <div id="controls">
+            <div class="controls-right"></div>
+        </div>
+    </div>
 
-      <!-- Containers for pie chart and line chart -->
-      <div id="charts-container">
-          <div id="pie-chart"></div>
-          <div id="line-chart"></div>
-      </div>
-
-      <div id="map-container">
-          <div id="map"></div>
-          <div id="controls" class="map-controls">
-              <div class="controls-right">
-                  <label for="yearDropdown">Select Year:</label>
-                  <select id="yearDropdown"></select>
-              </div>
-              <div id="legend-container"></div>
-          </div>
-      </div>
-
-
-
-      <!-- Script files for pie chart and line chart -->
-      <script src="pie.js"></script>
-      <script src="chart.js"></script>
-      <script src="map.js"></script>
-  </body>
+    <script src="pie.js"></script>
+    <script src="chart.js"></script>
+    <script type="module" src="map.js"></script>
+</body>
 </html>
+

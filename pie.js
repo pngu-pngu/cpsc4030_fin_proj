@@ -1,7 +1,7 @@
 
 d3.csv("meat_consumption_worldwide.csv").then(data => {
-    const width = 500;
-    const height = 500;
+    const width = 400;
+    const height = 400;
     const radius = Math.min(width, height) / 2 - 110;
 
     // Filter data 
@@ -15,7 +15,7 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
 
     const color = d3.scaleOrdinal()
         .domain(pieData.map(d => d.subject))
-        .range(["#ff6347", "#87ceeb", "#ffa500", "#4682b4"]);
+        .range(["#6e2701", "#f58696", "#d38f13", "#8A507C"]);
 
     const svg = d3.select("#pie-chart")
         .append("svg")
