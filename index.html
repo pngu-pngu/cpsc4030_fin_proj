@@ -98,11 +98,6 @@
             margin-top: 10px;
         }
 
-        #legend-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
 
 
         #controls .controls-right {
@@ -152,18 +147,14 @@
 
     <div id="map-container">
         <div id="map"></div>
-        <div id="controls" class="map-controls">
-            <div class="controls-right">
-                <label for="yearDropdown">Select Year:</label>
-                <select id="yearDropdown"></select>
-            </div>
-            <div id="legend-container"></div>
+        <div id="controls">
+            <div class="controls-right"></div>
         </div>
     </div>
 
     <script src="pie.js"></script>
     <script src="chart.js"></script>
-    <script src="map.js"</script>
+    <script type="module" src="map.js"></script>
 </body>
 </html>
 

@@ -1,5 +1,6 @@
 
 
+
 /*d3.csv("meat_consumption_worldwide.csv").then(data => {
     const width = 800;
     const height = 500;
@@ -200,6 +201,7 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
         .style("pointer-events", "none");
 
     const updateChart = (selectedLocation) => {
+
         const filteredData = data.filter(d =>
             d.measure === "KG_CAP" &&
             (selectedLocation === "All Locations" || d.location === selectedLocation)
