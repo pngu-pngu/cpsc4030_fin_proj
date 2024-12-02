@@ -16,15 +16,20 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #2C2C2C; /* Dark grey */
+            background-color: #FFF; /* Dark grey */
             color: #FFF;
         }
 
         h1 {
-            text-align: center;
-            margin: 20px 0;
+            display: flex; /* Enables flexbox for the element */
+            justify-content: center; /* Centers content horizontally */
+            align-items: center; /* Centers content vertically */
+            margin: auto; /* Centers the h1 element within the body */
             font-size: 2.5em;
-            color: #F9906F;
+            color: #FFF;
+            background-color: #063806;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: 80px; /* Ensures there's a consistent height for centering */
         }
 
         h2{
@@ -32,13 +37,19 @@
           text-align: center;
           margin: 20px 0;
           font-size: 1.5em;
-          color: #2C2C2C;
+          color: #063806;
         
         }
 
         #description {
             text-align: center;
             margin-bottom: 20px;
+        }
+        #impact{
+            text-align: center;
+            margin: 40px;
+            background-color: #FFF;
+            color: black;
         }
 
         #dashboard-container {
@@ -57,18 +68,48 @@
             width: 100%;
             max-width: 1200px;
             gap: 20px;
+
         }
 
         .chart-box {
-            background-color: #FFFFFF;
-            border: 1px solid  #F9906F;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #FFF ;
             padding: 20px;
             flex: 1;
             min-width: 350px;
             max-width: 48%;
+    
         }
+        #map-container {
+            margin-top: 100px;
+        }
+
+        #map {
+            margin: 20px auto;
+            width: 800px;
+            height: 500px;
+            border: 1px solid #ccc;
+        }
+
+        #controls {
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #legend-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+
+        #controls .controls-right {
+            display: flex;
+            flex-direction: column;
+        }
+
 
         #pie-chart {
             display: flex;
@@ -89,9 +130,12 @@
     </style>
 </head>
 <body>
-    <h1>Meat Consumption</h1>
+    <h1>Going Green</h1>
     <div id="description">
-        <p style="font-size: 1.2em; color: #FFF;">Meats description</p>
+        <p style="font-size: 1.5em; color: #063806;">Reduce the carbon impact of meat consumption!</p>
+    </div>
+    <div id="impact">
+        <p style="font-size: 1em; color: #040404;">The production of meat products—especially beef—is one of the largest contributing factors to global climate change. Meat production requires deforestation, and  ruminant animals emit the harmful greenhouse gas methane as part of their digestive process. Dietary habits vary based on several cultural and economic factors, so meat consumption looks very different from one country to another. Additionally, different types of meat products have varying carbon footprints. We want to explore which areas of the world are committed towards decreasing meat consumption and lowering greenhouse emissions whether it is by decreasing meat consumption all together or decreasing the most harmful type of meat and increasing the least harmful type of meat. </p>
     </div>
     <div id="dashboard-container">
         <div id="charts-container">
@@ -108,6 +152,18 @@
             </div>
         </div>
     </div>
+
+    <div id="map-container">
+        <div id="map"></div>
+        <div id="controls" class="map-controls">
+            <div class="controls-right">
+                <label for="yearDropdown">Select Year:</label>
+                <select id="yearDropdown"></select>
+            </div>
+            <div id="legend-container"></div>
+        </div>
+    </div>
+
     <script src="pie.js"></script>
     <script src="chart.js"></script>
 </body>

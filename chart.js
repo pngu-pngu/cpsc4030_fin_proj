@@ -187,7 +187,7 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
     const subjects = ["BEEF", "PIG", "POULTRY", "SHEEP"];
     const color = d3.scaleOrdinal()
         .domain(subjects)
-        .range(["#ff6347", "#87ceeb", "#ffa500", "#4682b4"]);
+        .range(["#6e2701", "#f58696", "#d38f13", "#8A507C"]);
 
     const tooltip = d3.select("body")
         .append("div")
