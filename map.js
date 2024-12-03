@@ -1,4 +1,4 @@
-import updateChart from './updateChart.js';
+import updateChart from './chart.js';
 
 d3.csv("meat_consumption_worldwide.csv").then(data => {
     const EU28 = [
@@ -117,7 +117,24 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
                 const selectedCountry = d.id; 
                 console.log("%s clicked", selectedCountry);
                 updateChart(selectedCountry); 
+            })
+            .on("mouseover", (event, d) => {
+                const mouseCountry = d.id; // Assuming `d.properties.name` contains the country name
+                const mouseValue = percentChangeByCountry[mouseCountry]; // Get the value for the country
+            
+                tooltip.style("display", "block")
+                    .style("color", "white")
+                    .style("background-color", "#063806")
+                    .html(`<strong>${subject}</strong><br>Country: ${mouseCountry}<br>Kg/Cap: ${mouseValue}`);
+            })
+            .on("mousemove", event => {
+                tooltip.style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mouseout", () => {
+                tooltip.style("display", "none");
             });
+            
 
         // SVG for the legend
         const legendSvg = d3.select("#legend-container")
