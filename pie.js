@@ -1,11 +1,18 @@
 
+const updatePie = (selectedLocation = "All Locations", year = "All Years") => {
+
 d3.csv("meat_consumption_worldwide.csv").then(data => {
     const width = 400;
     const height = 400;
     const radius = Math.min(width, height) / 2 - 110;
 
-    // Filter data 
-    const filteredData = data.filter(d => d.measure === "KG_CAP");
+
+    const filteredData = data.filter(d =>
+        d.measure === "KG_CAP" &&
+        (selectedLocation === "All Locations" || d.location === selectedLocation) &&
+        (year === "All Years" || d.time === year)
+    );
+
 
     const pieData = d3.rollups(
         filteredData,
@@ -17,12 +24,15 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
         .domain(pieData.map(d => d.subject))
         .range(["#6e2701", "#f58696", "#d38f13", "#8A507C"]);
 
-    const svg = d3.select("#pie-chart")
+     const svgContainer = d3.select("#pie-chart");
+    svgContainer.selectAll("*").remove(); // Remove all previous chart elements
+
+    const svg = svgContainer
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g")
-        .attr("transform", `translate(${width /2 }, ${height / 2 })`);
+        .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
     const pie = d3.pie()
         .value(d => d.value);
@@ -55,4 +65,6 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
         .style("text-anchor", d => (d.endAngle + d.startAngle) / 2 > Math.PI ? "end" : "start")
         .style("font-size", "12px");
 });
+}
 
+export default updatePie;
