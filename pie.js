@@ -10,7 +10,7 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
     const filteredData = data.filter(d =>
         d.measure === "KG_CAP" &&
         (selectedLocation === "All Locations" || d.location === selectedLocation) &&
-        (year === "All Years" || d.time === year)
+        (year === "All Years" || parseInt(d.time) === parseInt(year))
     );
 
 
