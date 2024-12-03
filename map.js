@@ -1,4 +1,6 @@
 import updateChart from './chart.js';
+import updatePie from './pie.js';
+
 
 d3.csv("meat_consumption_worldwide.csv").then(data => {
     const EU28 = [
@@ -7,8 +9,20 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
         "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE"
     ];
 
+    const tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("background-color", "white")
+    .style("border", "1px solid #ccc")
+    .style("border-radius", "5px")
+    .style("padding", "5px 10px")
+    .style("display", "none")
+    .style("pointer-events", "none");
+
+
+
     // Group data 
-    const percentChanges = d3.groups(data.filter(d => d.measure === "KG_CAP"), d => d.location, d => d.subject)
+    const percentChanges = d3.groups(data.filter(d => d.measure === "KG_CAP" /*&& (year === "All Years" || d.time === year)*/), d => d.location, d => d.subject)
         .map(([location, subjects]) => {
             const subjectValues = subjects.map(([subject, records]) => {
                 const sortedRecords = records
@@ -81,60 +95,62 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
             .domain([-0.1, 0.5]) 
             .range(["#ffe5e5", "#8b0000"]); 
 
+
         // Draw the map
         svg.selectAll(".polygon")
-            .data(worldData.features.filter(d => d.geometry.type === "Polygon"))
-            .enter()
-            .append("path")
-            .attr("d", path)
-            .attr("fill", d => {
-                const isoCode = d.id; // Match ISO codes with `location`
-                const percentChange = percentChangeByCountry[isoCode];
-                return percentChange != null ? colorScale(percentChange) : "#ffffff"; 
-            })
-            .attr("stroke", "#000000")
-            .attr("stroke-width", .5)
-            .on("click", function (event, d) {
-                const selectedCountry = d.id; 
-                console.log("%s clicked", selectedCountry);
-                updateChart(selectedCountry); 
-            });
+        .data(worldData.features.filter(d => d.geometry.type === "Polygon"))
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .attr("fill", d => {
+            const isoCode = d.id; // Match ISO codes with `location`
+            const percentChange = percentChangeByCountry[isoCode];
+            return percentChange != null ? colorScale(percentChange) : "#ffffff"; 
+        })
+        .attr("stroke", "#000000")
+        .attr("stroke-width", .5)
+        .on("click", function (event, d) {
+            const selectedCountry = d.id; 
+            console.log("%s clicked", selectedCountry);
+            updateChart(selectedCountry); 
+            updatePie(selectedCountry);
+        });
 
         svg.selectAll(".multipolygon")
-            .data(worldData.features.filter(d => d.geometry.type === "MultiPolygon"))
-            .enter()
-            .append("path")
-            .attr("class", "multipolygon")
-            .attr("d", path)
-            .attr("fill", d => {
-                const isoCode = d.id; 
-                const percentChange = percentChangeByCountry[isoCode];
-                return percentChange != null ? colorScale(percentChange) : "#ffffff"; 
-            })
-            .attr("stroke", "#000000")
-            .attr("stroke-width", 0.5)
-            .on("click", function (event, d) {
-                const selectedCountry = d.id; 
-                console.log("%s clicked", selectedCountry);
-                updateChart(selectedCountry); 
-            })
-            .on("mouseover", (event, d) => {
-                const mouseCountry = d.id; // Assuming `d.properties.name` contains the country name
-                const mouseValue = percentChangeByCountry[mouseCountry]; // Get the value for the country
-            
-                tooltip.style("display", "block")
-                    .style("color", "white")
-                    .style("background-color", "#063806")
-                    .html(`<strong>${subject}</strong><br>Country: ${mouseCountry}<br>Kg/Cap: ${mouseValue}`);
-            })
-            .on("mousemove", event => {
-                tooltip.style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 20) + "px");
-            })
-            .on("mouseout", () => {
-                tooltip.style("display", "none");
-            });
-            
+        .data(worldData.features.filter(d => d.geometry.type === "MultiPolygon"))
+        .enter()
+        .append("path")
+        .attr("class", "multipolygon")
+        .attr("d", path)
+        .attr("fill", d => {
+            const isoCode = d.id; 
+            const percentChange = percentChangeByCountry[isoCode];
+            return percentChange != null ? colorScale(percentChange) : "#ffffff"; 
+        })
+        .attr("stroke", "#000000")
+        .attr("stroke-width", 0.5)
+        .on("click", function (event, d) {
+            const selectedCountry = d.id; 
+            console.log("%s clicked", selectedCountry);
+            updateChart(selectedCountry); 
+            updatePie(selectedCountry);
+        })
+        .on("mouseover", (event, d) => {
+            const mouseCountry = d.id; 
+            const mouseValue = Math.round(percentChangeByCountry[mouseCountry] * 100) + "%"; // Get the value for the country
+
+            tooltip.style("display", "block")
+                .style("color", "white")
+                .style("background-color", "#063806")
+                .html(`<strong>${mouseCountry}</strong><br>Kg/Cap: ${mouseValue}`);
+        })
+        .on("mousemove", event => {
+            tooltip.style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 20) + "px");
+        })
+        .on("mouseout", () => {
+            tooltip.style("display", "none");
+        });
 
         // SVG for the legend
         const legendSvg = d3.select("#legend-container")
@@ -182,4 +198,8 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
     });
 });
 
+
+updatePie("All Locations","All Years");
 updateChart("All Locations");
+
+//export default updateMap

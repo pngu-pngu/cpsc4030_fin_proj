@@ -1,22 +1,11 @@
-const updateChart = (selectedLocation) => {
+import updatePie from './pie.js';
+//import updateMap from './map.js';
+
+const updateChart = (selectedLocation = "All Locations") => {
     d3.csv("meat_consumption_worldwide.csv").then(data => {
         const width = 400; // Chart width
         const height = 400; // Chart height
         const margin = { top: 50, right: 100, bottom: 50, left: 50 };
-
-        const locations = [...new Set(data.map(d => d.location))];
-
-        // Attach the dropdown to the controls group
-        const dropdown = d3.select("#controls-charts")
-            .append("select")
-            .attr("id", "locationDropdown");
-
-        dropdown.selectAll("option")
-            .data(["All Locations", ...locations])
-            .enter()
-            .append("option")
-            .attr("value", d => d)
-            .text(d => d);
 
         // Clear the previous chart before creating a new one
         const svgContainer = d3.select("#line-chart");
@@ -131,6 +120,12 @@ const updateChart = (selectedLocation) => {
                 .attr("stroke", color(subject))
                 .attr("stroke-width", 2)
                 .attr("d", line)
+                .on("click", function (event, d) {
+                    console.log(d);
+                    const selectedYear= d.id; 
+                    updatePie("All Locations", selectedYear);
+                    //updateMap( selectedYear);
+                })
                 .on("mouseover", (event, d) => {
                     const mouseYear = d3.pointer(event)[0];
                     const closest = d.reduce((a, b) =>
@@ -173,7 +168,6 @@ const updateChart = (selectedLocation) => {
             .text(d => d);
     });
 };
-
 
 
 export default updateChart;
