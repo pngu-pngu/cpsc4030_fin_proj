@@ -121,9 +121,12 @@ const updateChart = (selectedLocation = "All Locations") => {
                 .attr("stroke-width", 2)
                 .attr("d", line)
                 .on("click", function (event, d) {
-                    console.log(d);
-                    const selectedYear= d.id; 
-                    updatePie("All Locations", selectedYear);
+                    const mouseYear = d3.pointer(event)[0];
+                    const closest = d.reduce((a, b) =>
+                        Math.abs(x(+a.time) - mouseYear) < Math.abs(x(+b.time) - mouseYear) ? a : b
+                    );
+                    console.log("selected year", closest.time);
+                    updatePie("All Locations", closest.time);
                     //updateMap( selectedYear);
                 })
                 .on("mouseover", (event, d) => {
