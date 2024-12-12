@@ -3,6 +3,9 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,182 +19,129 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFF; /* Dark grey */
-            color: #FFF;
+            background-color: #FFF;
         }
 
         h1 {
-            display: flex; /* Enables flexbox for the element */
-            justify-content: center; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
-            margin: auto; /* Centers the h1 element within the body */
+            text-align: center;
+            margin: 0;
             font-size: 2.5em;
             color: #FFF;
             background-color: #063806;
+            padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            height: 80px; /* Ensures there's a consistent height for centering */
-        }
-
-        h2{
-
-          text-align: center;
-          margin: 20px 0;
-          font-size: 1.5em;
-          color: #063806;
-        }
-        
-        h3{
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.5em;
-            color: #063806;
-            margin-top: 50px;
-          
-          }
-
-        #description {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #impact{
-            text-align: center;
-            margin: 40px;
-            background-color: #FFF;
-            color: black;
         }
 
         #dashboard-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 20px;
+            flex-direction: row;
+            justify-content: space-between;
             gap: 20px;
+            margin: 20px;
         }
 
-        #charts-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            gap: 20px;
+        #scatter-container {
+            width: 600px; /* Ensures fixed width in inches */
+            height: 800px; /* Vertical stretching */
+            background-color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
 
+        #scatter-container h2 {
+            text-align: center;
+            margin: 0 0 20px;
+            font-size: 1.5em;
+            color: #063806;
+        }
+
+        #scatter-plot {
+            width: 100%;
+            height: 100%;
+        }
+
+        #right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 600px;
         }
 
         .chart-box {
-            background-color: #FFF ;
-            padding: 20px;
-            flex: 1;
-            min-width: 350px;
-            max-width: 48%;
-    
+            width: 600px;
+            height: 400px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
+        .chart-box h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #063806;
+        }
 
         #map-container {
-            display: flex;
-            margin-top: 100px;
-            justify-content: flex-start; /* Align items horizontally */
-            align-items: flex-start;    /* Align items vertically */
-            justify-content: space-between;
-            align-items: center; /* Aligns items (map and legend) vertically */
-            gap: 0px;
-            margin: 20px auto;
-            max-width: 1200px;
-            gap: 20px;
-            position: relative; /* Allows positioning of the legend relative to the container */
-        }
-        
-        #map {
-            flex: 5; /* Take up more space compared to the legend */
-            justify-content: right; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
-            width: 800px;
-            height: 500px;
-            margin: 20px auto;
-            margin-left: 150px; /* Pushes the entire container to the right */
-        }
-        
-        #legend-container {
-            flex: 1; /* Take up less space */
-            min-width: 10px;
-            padding: 0px;
-            background-color: #FFF;
-            align-items: center; 
-            position: absolute; /* Positions the legend relative to #map-container */
-            right: -50px; 
-            top: 50%; /* Aligns the legend vertically */
-            transform: translateY(-50%); /* Centers the legend vertically */
-        }
-    
-
-        #controls {
-            display: flex;
-            flex-direction: column; 
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-
-
-        #controls .controls-right {
-            display: flex;
-            flex-direction: column;
-        }
-
-
-        #pie-chart {
+            width: 600px;
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        #controls-charts {
-            margin-top: 20px;
-            text-align: right;
+        #chart-container {
+            width: 400px;
+            height: 400px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1000px) {
+            #dashboard-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #scatter-container,
+            #right-panel {
+                width: 100%;
+                height: auto;
+            }
+
             .chart-box {
-                max-width: 100%;
+                width: 100%;
+                height: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Going Green</h1>
-    <div id="description">
-        <p style="font-size: 1.5em; color: #063806;">Reduce the carbon impact of meat consumption!</p>
-    </div>
-    <div id="impact">
-        <p style="font-size: 1em; color: #040404;">The production of meat products—especially beef—is one of the largest contributing factors to global climate change. Meat production requires deforestation, and  ruminant animals emit the harmful greenhouse gas methane as part of their digestive process. Dietary habits vary based on several cultural and economic factors, so meat consumption looks very different from one country to another. Additionally, different types of meat products have varying carbon footprints. We want to explore which areas of the world are committed towards decreasing meat consumption and lowering greenhouse emissions whether it is by decreasing meat consumption all together or decreasing the most harmful type of meat and increasing the least harmful type of meat. </p>
-    </div>
     <div id="dashboard-container">
-        <div id="charts-container">
-            <div class="chart-box">
-                <h2>Meat Consumption Breakdown</h2>
-                <div id="pie-chart"></div>
-            </div>
-            <div class="chart-box">
-                <h2>Trends Over Time</h2>
+
+        
+        <div id="scatter-container">
+            <h2>Scatter Title</h2>
+            <div id="scatter-plot"></div>
+        </div>
+
+        <!-- Right Panel: Map and Chart -->
+        <div id="right-panel">
+            <h2>Trends Over Time</h2>
+            <div id="chart-container" class="chart-box">
+                <!-- <h2>Trends Over Time</h2> -->
                 <div id="line-chart"></div>
+            </div>
+            <h2>Geographic Map</h2> 
+            <div id="map-container" class="chart-box">
+                <!-- <h2>Geographic Map</h2> -->
+                <div id="map"></div>
             </div>
         </div>
     </div>
 
-    <h3>Percent Change (kg/cap) By Country</h3>
-    <div id="map-container">
-        
-            <div id="map"></div>
-
-            <div id="legend-container" /div>
-    </div>
-
-    <script type = "module" src="pie.js"></script>
-    <script type = "module" src="chart.js"></script>
+    <script src="scatterplot.js"></script>
+    <script type="module" src="pie.js"></script>
+    <script type="module" src="chart.js"></script>
     <script type="module" src="map.js"></script>
 </body>
 </html>

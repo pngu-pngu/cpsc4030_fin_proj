@@ -48,7 +48,7 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
 
             const percentChange = (endTotal - startTotal) / 100; 
 
-            console.log("%s Data:", location, { location, percentChange });
+            //console.log("%s Data:", location, { location, percentChange });
 
             return { location, percentChange };
         });
@@ -79,8 +79,8 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
     // Load and process the GeoJSON data for the world map
     d3.json("countries.geo.json").then(worldData => {
         const svg = d3.select("#map").append("svg")
-            .attr("width", 1400)
-            .attr("height", 600);
+            .attr("width", 600)
+            .attr("height", 400);
 
         const projection = d3.geoMercator()
             .scale(150)
