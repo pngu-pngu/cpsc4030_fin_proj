@@ -139,6 +139,7 @@ const updateChart = (selectedLocation = "All Locations") => {
                 .attr("d", line)
                 // on click update the pie and map charts with inputed year
                 .on("click", function (event, d) {
+                    
                     const mouseYear = d3.pointer(event)[0];
                     const closest = d.reduce((a, b) =>
                         Math.abs(x(+a.time) - mouseYear) < Math.abs(x(+b.time) - mouseYear) ? a : b
@@ -146,7 +147,8 @@ const updateChart = (selectedLocation = "All Locations") => {
                     console.log("selected year", closest.time);
                     updatePie("All Locations", closest.time);
                     updateMap( closest.time, "All Subjects");
-                    event.stopPropagation(); // Prevent this click from propagating to the container
+                    //event.stopPropagation(); // Prevent this click from propagating to the container
+                    
                 })
                 // tooltip on mouse over
                 .on("mouseover", (event, d) => {
@@ -191,6 +193,7 @@ const updateChart = (selectedLocation = "All Locations") => {
             .text(d => d);
 
         // Add listener for clicks inside the  chart container but not on paths
+        
         svgContainer.on("click", function (event) {
             const clickedElement = event.target; 
             if (clickedElement.tagName !== "path") {
@@ -199,6 +202,7 @@ const updateChart = (selectedLocation = "All Locations") => {
                 updatePie("All Locations", "All Years");
             }
         });
+        
     });
 
 };

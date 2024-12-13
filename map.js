@@ -2,6 +2,7 @@ import updateChart from './chart.js';
 import updatePie from './pie.js';
 
 const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
+
     d3.csv("meat_consumption_worldwide.csv").then(data => {
 
         // show EU values as spanning across all the EU countries
@@ -33,9 +34,11 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
         const filteredData = data.filter(d =>
             d.measure === "KG_CAP" &&
             (subjectInput === "All Subjects" || d.subject === subjectInput)  &&
-            (yearInput = "All Years" || parseInt(d.time) <= parseInt(yearInput))
+            (yearInput === "All Years" || parseInt(d.time) <= parseInt(yearInput))
         );
 
+       // console.log("input",yearInput);
+        //console.log(filteredData);
 
         // Group data 
         const percentChanges = d3.groups(filteredData.filter(d => d.measure  ), d => d.location, d => d.subject)
