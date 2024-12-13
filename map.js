@@ -134,6 +134,10 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
             .attr("stroke-width", .5)
             .on("click", function (event, d) {
                 let selectedCountry = d.id; 
+
+                if (EU28.includes(selectedCountry) ){
+                    selectedCountry = "EU28";
+                }
                 console.log("%s clicked", selectedCountry);
                 if (selectedCountry === "BMU") selectedCountry = "All Locations";
                 updateChart(selectedCountry); 
@@ -174,6 +178,9 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
             // update the other visualizations based on a mouse click on the country
             .on("click", function (event, d) {
                 let selectedCountry = d.id; 
+                if (EU28.includes(selectedCountry) ){
+                    selectedCountry = "EU28";
+                }
                 console.log("%s clicked", selectedCountry);
                 if (selectedCountry === "BMU") selectedCountry = "All Locations";
                 updateChart(selectedCountry); 
