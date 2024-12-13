@@ -90,7 +90,7 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
         // Load and process the GeoJSON data for the world map
         d3.json("countries.geo.json").then(worldData => {
             const svg = d3.select("#map").append("svg")
-                .attr("width", 1400)
+                .attr("width", 800)
                 .attr("height", 600);
 
             const projection = d3.geoMercator()
@@ -168,31 +168,33 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
             // SVG for the legend
             const legendSvg = d3.select("#legend-container")
                 .append("svg")
-                .attr("width", 100) 
-                .attr("height", 200); 
+                .attr("width", 500) 
+                .attr("height", 50); 
 
 
             // Calculate the min and max percentChange 
             // Calculate the min and max percentChange values from the percentChangeByCountry
+            
             const allPercentChanges = flattenedData.map(d => d.percentChange).filter(d => !isNaN(d));
-            const minValue = Math.floor(d3.min(allPercentChanges) * 10) / 10; 
-            const maxValue = Math.ceil(d3.max(allPercentChanges) * 10) / 10;  
+            const minValue = Math.floor(d3.min(allPercentChanges) * 10) / 10;
+            const maxValue = Math.ceil(d3.max(allPercentChanges) * 10) / 10;
 
             // Generate ticks at 10% intervals
-            const legendTicks = d3.range(minValue, maxValue + 0.1, 0.1); 
+            const legendTicks = d3.range(minValue, maxValue + 0.1, 0.1);
 
             const legendScale = d3.scaleLinear()
                 .domain([minValue, maxValue])
-                .range([180, 0]); 
+                .range([0, legendTicks.length + 20]); // Adjust spacing between rectangles
 
+            // Append rectangles for the legend
             legendSvg.selectAll("rect")
                 .data(legendTicks)
                 .enter()
                 .append("rect")
-                .attr("x", 10)
-                .attr("y", d => legendScale(d))
-                .attr("width", 20)
-                .attr("height", Math.abs(legendScale(0.1) - legendScale(0))) 
+                .attr("x", (d, i) => legendScale(i)) // Position rectangles horizontally
+                .attr("y", 10) // Fixed y position
+                .attr("width", 40) // Rectangle width
+                .attr("height", 20) // Rectangle height
                 .attr("fill", d => colorScale(d));
 
             // Add percentage labels to the legend
@@ -200,12 +202,11 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
                 .data(legendTicks)
                 .enter()
                 .append("text")
-                .attr("x", 35)
-                .attr("y", d => legendScale(d) + 10) 
-                .text(d => `${(d * 100).toFixed(0)}%`) 
+                .attr("x", (d, i) => legendScale(i) + 20) // Center the text over each rectangle
+                .attr("y", 40) // Position text below the rectangles
+                .text(d => `${(d * 100).toFixed(0)}%`)
                 .style("font-size", "12px")
-                .style("alignment-baseline", "middle");
-        
+                .style("text-anchor", "middle"); // Center-align text
 
 
         });

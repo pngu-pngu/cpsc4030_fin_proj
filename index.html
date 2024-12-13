@@ -42,41 +42,24 @@
         
         h3{
             text-align: center;
-            margin: 20px 0;
             font-size: 1.5em;
             color: #063806;
-            margin-top: 50px;
-          
           }
 
-        #description {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #impact{
-            text-align: center;
-            margin: 40px;
-            background-color: #FFF;
-            color: black;
-        }
 
         #dashboard-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
-            margin: 20px;
-            gap: 20px;
         }
 
         #charts-container {
             display: flex;
             flex-wrap: wrap;
+            flex-direction: column; 
             justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            gap: 20px;
+            width: 500px;
 
         }
 
@@ -84,64 +67,37 @@
             background-color: #FFF ;
             padding: 20px;
             flex: 1;
-            min-width: 350px;
-            max-width: 48%;
+            width: 500px;
     
         }
 
 
         #map-container {
             display: flex;
-            margin-top: 100px;
-            justify-content: flex-start; /* Align items horizontally */
-            align-items: flex-start;    /* Align items vertically */
-            justify-content: space-between;
-            align-items: center; /* Aligns items (map and legend) vertically */
-            gap: 0px;
-            margin: 20px auto;
-            max-width: 1200px;
-            gap: 20px;
-            position: relative; /* Allows positioning of the legend relative to the container */
+            
+            flex-wrap: wrap;
+            flex-direction: column; 
+            top: 0;
+
+            width: 900px;
+            /* Allows positioning of the legend relative to the container */
         }
         
         #map {
-            flex: 5; /* Take up more space compared to the legend */
-            justify-content: right; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
-            width: 800px;
-            height: 500px;
-            margin: 20px auto;
-            margin-left: 150px; /* Pushes the entire container to the right */
+            width: 900px;
+            
         }
         
         #legend-container {
-            flex: 1; /* Take up less space */
             min-width: 10px;
+            width: 350px;
+            height: 50px;
             padding: 0px;
             background-color: #FFF;
-            align-items: center; 
-            position: absolute; /* Positions the legend relative to #map-container */
-            right: -50px; 
-            top: 50%; /* Aligns the legend vertically */
-            transform: translateY(-50%); /* Centers the legend vertically */
-        }
-    
-
-        #controls {
-            display: flex;
-            flex-direction: column; 
             justify-content: center;
             align-items: center;
-            margin-top: 10px;
+
         }
-
-
-
-        #controls .controls-right {
-            display: flex;
-            flex-direction: column;
-        }
-
 
         #pie-chart {
             display: flex;
@@ -163,6 +119,16 @@
 </head>
 <body>
     <div id="dashboard-container">
+
+        
+        <div id="map-container">
+            <h3>Percent Change (kg/cap) By Country</h3>
+            <div id="legend-container" /div></div>
+            <div id="map"></div>   
+        </div>
+        
+
+
         <div id="charts-container">
             <div class="chart-box">
                 <h2>Meat Consumption Breakdown</h2>
@@ -175,13 +141,7 @@
         </div>
     </div>
 
-    <h3>Percent Change (kg/cap) By Country</h3>
-    <div id="map-container">
-        
-            <div id="map"></div>
 
-            <div id="legend-container" /div>
-    </div>
 
     <script type = "module" src="pie.js"></script>
     <script type = "module" src="chart.js"></script>
