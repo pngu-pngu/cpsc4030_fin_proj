@@ -147,7 +147,7 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
                     tooltip.style("display", "block")
                         .style("color", "white")
                         .style("background-color", "#063806")
-                        .html(`<strong>${mouseCountry}</strong><br>Kg/Cap: ${mouseValue}`);
+                        .html(`<strong>${mouseCountry}</strong><br> ${mouseValue}`);
                 }
             })
             .on("mousemove", event => {
@@ -186,7 +186,7 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
                 tooltip.style("display", "block")
                     .style("color", "white")
                     .style("background-color", "#063806")
-                    .html(`<strong>${mouseCountry}</strong><br>Kg/Cap: ${mouseValue}`);
+                    .html(`<strong>${mouseCountry}</strong><br> ${mouseValue}`);
             })
             .on("mousemove", event => {
                 tooltip.style("left", (event.pageX + 10) + "px")
