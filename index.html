@@ -12,136 +12,66 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FFF; /* Dark grey */
-            color: #FFF;
-        }
-
-        h1 {
-            display: flex; /* Enables flexbox for the element */
-            justify-content: center; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
-            margin: auto; /* Centers the h1 element within the body */
-            font-size: 2.5em;
-            color: #FFF;
-            background-color: #063806;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            height: 80px; /* Ensures there's a consistent height for centering */
-        }
 
         h2{
 
           text-align: center;
-          margin: 20px 0;
+          padding: 0;
           font-size: 1.5em;
           color: #063806;
+          margin-bottom: 0;
+          margin-top: 0;
         }
         
         h3{
             text-align: center;
-            margin: 20px 0;
             font-size: 1.5em;
+            padding:0;
             color: #063806;
-            margin-top: 50px;
-          
-          }
-
-        #description {
-            text-align: center;
-            margin-bottom: 20px;
         }
 
-        #impact{
-            text-align: center;
-            margin: 40px;
-            background-color: #FFF;
-            color: black;
-        }
 
         #dashboard-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
-            margin: 20px;
-            gap: 20px;
+        }
+
+        #map-container {
+            display: flex;
+            flex-direction: column; 
+            width: 900px;
+
+        }
+        
+        #map {
+            width: 900px;
+        }
+        
+        #legend-container {
+            min-width: 10px;
+            width: 350px;
+            height: 50px;
+            padding: 0px;
+            background-color: #FFF;
+            justify-content: center;
+            align-self: center;
+
         }
 
         #charts-container {
             display: flex;
             flex-wrap: wrap;
+            flex-direction: column; 
             justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            gap: 20px;
-
+            width: 500px;
         }
 
         .chart-box {
             background-color: #FFF ;
-            padding: 20px;
-            flex: 1;
-            min-width: 350px;
-            max-width: 48%;
-    
+            width: 500px;
         }
-
-
-        #map-container {
-            display: flex;
-            margin-top: 100px;
-            justify-content: flex-start; /* Align items horizontally */
-            align-items: flex-start;    /* Align items vertically */
-            justify-content: space-between;
-            align-items: center; /* Aligns items (map and legend) vertically */
-            gap: 0px;
-            margin: 20px auto;
-            max-width: 1200px;
-            gap: 20px;
-            position: relative; /* Allows positioning of the legend relative to the container */
-        }
-        
-        #map {
-            flex: 5; /* Take up more space compared to the legend */
-            justify-content: right; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
-            width: 800px;
-            height: 500px;
-            margin: 20px auto;
-            margin-left: 150px; /* Pushes the entire container to the right */
-        }
-        
-        #legend-container {
-            flex: 1; /* Take up less space */
-            min-width: 10px;
-            padding: 0px;
-            background-color: #FFF;
-            align-items: center; 
-            position: absolute; /* Positions the legend relative to #map-container */
-            right: -50px; 
-            top: 50%; /* Aligns the legend vertically */
-            transform: translateY(-50%); /* Centers the legend vertically */
-        }
-    
-
-        #controls {
-            display: flex;
-            flex-direction: column; 
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-
-
-        #controls .controls-right {
-            display: flex;
-            flex-direction: column;
-        }
-
 
         #pie-chart {
             display: flex;
@@ -149,20 +79,20 @@
             align-items: center;
         }
 
-        #controls-charts {
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        @media (max-width: 768px) {
-            .chart-box {
-                max-width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
     <div id="dashboard-container">
+
+        
+        <div id="map-container">
+            <h3>Percent Change (kg/cap) By Country</h3>
+            <div id="legend-container"> </div> 
+            <div id="map"></div>   
+        </div>
+        
+
+
         <div id="charts-container">
             <div class="chart-box">
                 <h2>Meat Consumption Breakdown</h2>
@@ -175,13 +105,7 @@
         </div>
     </div>
 
-    <h3>Percent Change (kg/cap) By Country</h3>
-    <div id="map-container">
-        
-            <div id="map"></div>
 
-            <div id="legend-container" /div>
-    </div>
 
     <script type = "module" src="pie.js"></script>
     <script type = "module" src="chart.js"></script>
