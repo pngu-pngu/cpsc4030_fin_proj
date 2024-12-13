@@ -79,8 +79,8 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
     // Load and process the GeoJSON data for the world map
     d3.json("countries.geo.json").then(worldData => {
         const svg = d3.select("#map").append("svg")
-            .attr("width", 600)
-            .attr("height", 400);
+            .attr("width", 500)
+            .attr("height", 350);
 
         const projection = d3.geoMercator()
             .scale(150)

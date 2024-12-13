@@ -4,7 +4,7 @@ import updatePie from './pie.js';
 const updateChart = (selectedLocation = "All Locations") => {
     d3.csv("meat_consumption_worldwide.csv").then(data => {
         const width = 400; // Chart width
-        const height = 400; // Chart height
+        const height = 350; // Chart height
         const margin = { top: 50, right: 100, bottom: 50, left: 50 };
 
         // Clear the previous chart before creating a new one
@@ -38,15 +38,7 @@ const updateChart = (selectedLocation = "All Locations") => {
             (selectedLocation === "All Locations" || d.location === selectedLocation)
         );
 
-        const averagedData = d3.group(filteredData, d => d.subject, d => d.time);
-        const averagedBySubject = Array.from(averagedData, ([subject, yearData]) => {
-            return Array.from(yearData, ([year, records]) => {
-                const avgValue = d3.mean(records, r => +r.value);
-                return { subject, time: +year, value: avgValue };
-            });
-        }).flat();
 
-        averagedBySubject.sort((a, b) => a.time - b.time);
 
         const x = d3.scaleLinear()
             .domain(d3.extent(averagedBySubject, d => +d.time))

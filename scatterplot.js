@@ -1,7 +1,7 @@
 
 d3.csv("meat_consumption_worldwide.csv").then(data => {
-    const width = 400; // Chart width
-    const height = 400; // Chart height
+    const width = 800; // Chart width
+    const height = 800; // Chart height
     const margin = { top: 50, right: 100, bottom: 50, left: 50 };
     const sparklineHeight = 50; // Height for each sparkline
 
