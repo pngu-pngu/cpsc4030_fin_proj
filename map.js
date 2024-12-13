@@ -3,6 +3,8 @@ import updatePie from './pie.js';
 
 const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
     d3.csv("meat_consumption_worldwide.csv").then(data => {
+
+        // show EU values as spanning across all the EU countries
         const EU28 = [
             "AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FIN",
             "FRA", "DEU", "GRC", "HUN", "IRL", "ITA", "LVA", "LTU", "LUX",
@@ -10,10 +12,11 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
         ];
         
         // Clear the previous chart before creating a new one
+        // when we change our updateMap inputs must clear previous map before implement new one
         const svgContainer = d3.select("#map");
-        svgContainer.selectAll("*").remove(); // Remove all previous chart elements
+        svgContainer.selectAll("*").remove(); 
         const svgLegendContainer = d3.select("#legend-container");
-        svgLegendContainer.selectAll("*").remove(); // Remove all previous chart elements
+        svgLegendContainer.selectAll("*").remove(); 
 
         const tooltip = d3.select("body")
         .append("div")
@@ -25,6 +28,8 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
         .style("display", "none")
         .style("pointer-events", "none");
 
+
+        //filter our data to include only parameters
         const filteredData = data.filter(d =>
             d.measure === "KG_CAP" &&
             (subjectInput === "All Subjects" || d.subject === subjectInput)  &&
@@ -39,7 +44,8 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
                     const sortedRecords = records
                         .map(d => ({ ...d, value: +d.value, time: +d.time }))
                         .sort((a, b) => a.time - b.time);
-
+                    
+                    // starting and ending years for our dates
                     const startValues = sortedRecords.filter(d => d.time === sortedRecords[0].time);
                     const endValues = sortedRecords.filter(d => d.time === sortedRecords[sortedRecords.length - 1].time);
 
@@ -141,6 +147,7 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
             })
             .attr("stroke", "#000000")
             .attr("stroke-width", 0.5)
+            // update the other visualizations based on a mouse click on the country
             .on("click", function (event, d) {
                 let selectedCountry = d.id; 
                 console.log("%s clicked", selectedCountry);
@@ -174,7 +181,6 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
 
             // Calculate the min and max percentChange 
             // Calculate the min and max percentChange values from the percentChangeByCountry
-            
             const allPercentChanges = flattenedData.map(d => d.percentChange).filter(d => !isNaN(d));
             const minValue = Math.floor(d3.min(allPercentChanges) * 10) / 10;
             const maxValue = Math.ceil(d3.max(allPercentChanges) * 10) / 10;
@@ -184,17 +190,16 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
 
             const legendScale = d3.scaleLinear()
                 .domain([minValue, maxValue])
-                .range([0, legendTicks.length + 20]); // Adjust spacing between rectangles
+                .range([0, legendTicks.length + 20]); // space between rectangles
 
-            // Append rectangles for the legend
+            // Append rectangles to legend
             legendSvg.selectAll("rect")
                 .data(legendTicks)
                 .enter()
                 .append("rect")
-                .attr("x", (d, i) => legendScale(i)) // Position rectangles horizontally
-                .attr("y", 10) // Fixed y position
-                .attr("width", 40) // Rectangle width
-                .attr("height", 20) // Rectangle height
+                .attr("x", (d, i) => legendScale(i)) 
+                .attr("width", 40) 
+                .attr("height", 20) 
                 .attr("fill", d => colorScale(d));
 
             // Add percentage labels to the legend
@@ -203,10 +208,10 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
                 .enter()
                 .append("text")
                 .attr("x", (d, i) => legendScale(i) + 20) // Center the text over each rectangle
-                .attr("y", 40) // Position text below the rectangles
+                .attr("y", 40) // Ptext below the rectangles
                 .text(d => `${(d * 100).toFixed(0)}%`)
                 .style("font-size", "12px")
-                .style("text-anchor", "middle"); // Center-align text
+                .style("text-anchor", "middle"); 
 
 
         });

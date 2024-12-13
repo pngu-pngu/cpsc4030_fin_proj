@@ -13,8 +13,8 @@
     <script src="https://unpkg.com/topojson@3"></script>
     <style>
 
+        /* header for chart and pie*/
         h2{
-
           text-align: center;
           padding: 0;
           font-size: 1.5em;
@@ -23,6 +23,7 @@
           margin-top: 0;
         }
         
+        /* header for map*/
         h3{
             text-align: center;
             font-size: 1.5em;
@@ -30,7 +31,7 @@
             color: #063806;
         }
 
-
+        /* container for entire visuals */
         #dashboard-container {
             display: flex;
             flex-direction: row;
@@ -38,28 +39,7 @@
             justify-content: center;
         }
 
-        #map-container {
-            display: flex;
-            flex-direction: column; 
-            width: 900px;
-
-        }
-        
-        #map {
-            width: 900px;
-        }
-        
-        #legend-container {
-            min-width: 10px;
-            width: 350px;
-            height: 50px;
-            padding: 0px;
-            background-color: #FFF;
-            justify-content: center;
-            align-self: center;
-
-        }
-
+        /* container for pie and line, headers, legends*/
         #charts-container {
             display: flex;
             flex-wrap: wrap;
@@ -71,6 +51,28 @@
         .chart-box {
             background-color: #FFF ;
             width: 500px;
+        }
+
+        /* container for map, map header, map legend*/
+        #map-container {
+            display: flex;
+            flex-direction: column; 
+            top: 0;
+            width: 900px;
+        }
+        
+        #map {
+            width: 900px;
+        }
+        
+        /* map legend*/
+        #legend-container {
+            min-width: 10px;
+            width: 350px;
+            height: 50px;
+            padding: 0px;
+            background-color: #FFF;
+            align-self: center;
         }
 
         #pie-chart {
@@ -110,6 +112,8 @@
     <script type = "module" src="pie.js"></script>
     <script type = "module" src="chart.js"></script>
     <script type="module" src="map.js"></script>
+
+    <!-- module initializes charts, ran when page loaded-->
     <script type = "module" src="index.js" defer></script>
 </body>
 </html>
