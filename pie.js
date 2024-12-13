@@ -5,9 +5,9 @@ import updateChart from './chart.js';
 const updatePie = (selectedLocation = "All Locations", year = "All Years") => {
 
 d3.csv("meat_consumption_worldwide.csv").then(data => {
-    const width = 400;
+    const width = 500;
     const height = 300;
-    const radius = Math.min(width, height) / 2 - 80;
+    const radius = Math.min(width, height) / 2 - 60;
 
 
     const filteredData = data.filter(d =>

@@ -4,7 +4,7 @@ import updateMap from './map.js';
 const updateChart = (selectedLocation = "All Locations") => {
     d3.csv("meat_consumption_worldwide.csv").then(data => {
         const width = 400; // Chart width
-        const height = 350; // Chart height
+        const height = 325; // Chart height
         const margin = { top: 50, right: 100, bottom: 50, left: 50 };
 
         // Clear the previous chart before creating a new one

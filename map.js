@@ -27,8 +27,8 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
 
         const filteredData = data.filter(d =>
             d.measure === "KG_CAP" &&
-            (subjectInput === "All Subjects" || d.subject === subjectInput) &&
-            (yearInput === "All Years" || parseInt(d.time) === parseInt(yearInput))
+            (subjectInput === "All Subjects" || d.subject === subjectInput)  &&
+            (yearInput = "All Years" || parseInt(d.time) <= parseInt(yearInput))
         );
 
 
