@@ -144,10 +144,10 @@ const updateChart = (selectedLocation = "All Locations") => {
                     const closest = d.reduce((a, b) =>
                         Math.abs(x(+a.time) - mouseYear) < Math.abs(x(+b.time) - mouseYear) ? a : b
                     );
-                    console.log("selected year", closest.time);
+                    //console.log("selected year", closest.time);
                     updatePie("All Locations", closest.time);
                     updateMap( closest.time, "All Subjects");
-                    //event.stopPropagation(); // Prevent this click from propagating to the container
+                    event.stopPropagation(); // Prevent this click from propagating to the container
                     
                 })
                 // tooltip on mouse over
@@ -169,6 +169,68 @@ const updateChart = (selectedLocation = "All Locations") => {
                     tooltip.style("display", "none");
                 });
         });
+
+        // Add a vertical line
+        const verticalLine = svg.append("line")
+            .attr("stroke", "black")
+            .attr("stroke-width", 1)
+            .attr("y1", 0)
+            .attr("y2", height)
+            .style("display", "none");
+
+        // Add overlay black line for mouse events
+        const overlay = svg.append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .style("fill", "none")
+            .style("pointer-events", "all")
+            .on("click", function (event, d) {
+                const mouseX = d3.pointer(event)[0];
+                // Find the closest year based on the mouse position
+                const year = Math.round(x.invert(mouseX)); 
+            
+                // Update the pie and map with the selected year
+                updatePie("All Locations", year);
+                updateMap(year, "All Subjects");
+            
+                // Prevent the click from propagating to the container
+                event.stopPropagation();
+            })
+            // when the mouse moves move the black line
+            .on("mousemove", function (event) {
+                const mouseX = d3.pointer(event)[0];
+                const year = Math.round(x.invert(mouseX)); 
+                const xPos = x(year);
+            
+                verticalLine
+                    .attr("x1", xPos)
+                    .attr("x2", xPos)
+                    .style("display", "block");
+            
+                tooltip.style("display", "block")
+                    .style("color", "white")
+                    .style("background-color", "#063806");
+            
+                // Loop over each subject to get the value for the year
+                let tooltipContent = `<strong>Year:</strong> ${year}<br>`;
+                
+                subjects.forEach(subject => {
+                    const subjectData = averagedBySubject.filter(d => d.subject === subject && d.time === year);
+                    if (subjectData.length > 0) {
+                        tooltipContent += `${subject}: ${subjectData[0].value.toFixed(2)} <br>`;
+                    } else {
+                        tooltipContent += `${subject}: No data<br>`;
+                    }
+                });
+            
+                tooltip.html(tooltipContent)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mouseout", () => {
+                verticalLine.style("display", "none");
+                tooltip.style("display", "none");
+            });
 
         // Add legend
         const legend = svg.selectAll(".legend")
