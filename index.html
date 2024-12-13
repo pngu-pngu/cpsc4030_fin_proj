@@ -12,30 +12,11 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FFF; /* Dark grey */
-            color: #FFF;
-        }
-
-        h1 {
-            display: flex; /* Enables flexbox for the element */
-            justify-content: center; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
-            margin: auto; /* Centers the h1 element within the body */
-            font-size: 2.5em;
-            color: #FFF;
-            background-color: #063806;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            height: 80px; /* Ensures there's a consistent height for centering */
-        }
 
         h2{
 
           text-align: center;
-          margin: 20px 0;
+          padding: 0;
           font-size: 1.5em;
           color: #063806;
         }
@@ -65,22 +46,21 @@
 
         .chart-box {
             background-color: #FFF ;
-            padding: 20px;
-            flex: 1;
-            width: 500px;
+
+ 
+            width: 400px;
     
         }
 
 
         #map-container {
             display: flex;
-            
-            flex-wrap: wrap;
+        
             flex-direction: column; 
             top: 0;
-
+            
             width: 900px;
-            /* Allows positioning of the legend relative to the container */
+
         }
         
         #map {
@@ -105,16 +85,6 @@
             align-items: center;
         }
 
-        #controls-charts {
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        @media (max-width: 768px) {
-            .chart-box {
-                max-width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -123,7 +93,7 @@
         
         <div id="map-container">
             <h3>Percent Change (kg/cap) By Country</h3>
-            <div id="legend-container" /div></div>
+            <div id="legend-container"> </div> 
             <div id="map"></div>   
         </div>
         

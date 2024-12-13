@@ -168,7 +168,7 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
             // SVG for the legend
             const legendSvg = d3.select("#legend-container")
                 .append("svg")
-                .attr("width", 500) 
+                .attr("width", 350) 
                 .attr("height", 50); 
 
 
