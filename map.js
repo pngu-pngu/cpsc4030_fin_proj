@@ -12,12 +12,9 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
             "MLT", "NLD", "POL", "PRT", "ROU", "SVK", "SVN", "ESP", "SWE"
         ];
         
-        // Clear the previous chart before creating a new one
-        // when we change our updateMap inputs must clear previous map before implement new one
-        const svgContainer = d3.select("#map");
-        svgContainer.selectAll("*").remove(); 
-        const svgLegendContainer = d3.select("#legend-container");
-        svgLegendContainer.selectAll("*").remove(); 
+
+        
+
 
         const tooltip = d3.select("body")
         .append("div")
@@ -98,6 +95,12 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
 
         // Load and process the GeoJSON data for the world map
         d3.json("countries.geo.json").then(worldData => {
+            
+            // Clear the previous chart before creating a new one
+            // when we change our updateMap inputs must clear previous map before implement new one
+            const svgContainer = d3.select("#map");
+            svgContainer.selectAll("*").remove(); 
+
             const svg = d3.select("#map").append("svg")
                 .attr("width", 800)
                 .attr("height", 600);
@@ -174,6 +177,12 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
             .on("mouseout", () => {
                 tooltip.style("display", "none");
             });
+
+            
+            // Clear the previous chart before creating a new one
+            // when we change our updateMap inputs must clear previous map before implement new one
+            const svgLegendContainer = d3.select("#legend-container");
+            svgLegendContainer.selectAll("*").remove(); 
 
             // SVG for the legend
             const legendSvg = d3.select("#legend-container")
