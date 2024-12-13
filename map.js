@@ -138,6 +138,24 @@ const updateMap = (yearInput = "All Years", subjectInput = "All Subjects") => {
                 if (selectedCountry === "BMU") selectedCountry = "All Locations";
                 updateChart(selectedCountry); 
                 updatePie(selectedCountry);
+            })
+            .on("mouseover", (event, d) => {
+                const mouseCountry = d.id; 
+                const mouseValue = Math.round(percentChangeByCountry[mouseCountry] * 100) + "%"; // Get the value for the country
+
+                if (mouseCountry != "BMU" && mouseValue !="NaN%"){
+                    tooltip.style("display", "block")
+                        .style("color", "white")
+                        .style("background-color", "#063806")
+                        .html(`<strong>${mouseCountry}</strong><br>Kg/Cap: ${mouseValue}`);
+                }
+            })
+            .on("mousemove", event => {
+                tooltip.style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mouseout", () => {
+                tooltip.style("display", "none");
             });
 
             svg.selectAll(".multipolygon")
