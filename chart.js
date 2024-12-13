@@ -1,5 +1,5 @@
 import updatePie from './pie.js';
-//import updateMap from './map.js';
+import updateMap from './map.js';
 
 const updateChart = (selectedLocation = "All Locations") => {
     d3.csv("meat_consumption_worldwide.csv").then(data => {
@@ -127,7 +127,7 @@ const updateChart = (selectedLocation = "All Locations") => {
                     );
                     console.log("selected year", closest.time);
                     updatePie("All Locations", closest.time);
-                    //updateMap( selectedYear);
+                    updateMap( closest.time, subject);
                 })
                 .on("mouseover", (event, d) => {
                     const mouseYear = d3.pointer(event)[0];
