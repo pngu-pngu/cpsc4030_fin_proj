@@ -1,3 +1,6 @@
+import updateMap from './map.js';
+import updateChart from './chart.js';
+
 
 const updatePie = (selectedLocation = "All Locations", year = "All Years") => {
 
@@ -51,6 +54,12 @@ d3.csv("meat_consumption_worldwide.csv").then(data => {
         .enter()
         .append("path")
         .attr("d", arc)
+        .on("click", function (event, d) {
+            console.log(d);
+            const mouseSubject = d.data.subject;
+            console.log("suby", mouseSubject);
+            updateMap( "All Years", mouseSubject);
+        })
         .attr("fill", d => color(d.data.subject))
         .attr("stroke", "white")
         .style("stroke-width", "2px");
